@@ -1,8 +1,6 @@
 name: Deploy to Fly.io
 
-on:
-  push:
-    branches: [ "master" ]
+on: [push]
 
 jobs:
   autodeploy:
@@ -31,9 +29,11 @@ jobs:
       - name: Build app with pack CLI & publish to GitHub Container Registry
         run: |
           pack build ghcr.io/alexshamrai/medicine-registry:latest \
-              --builder paketobuildpacks/builder:base \
+              --builder paketobuildpacks/builder:tiny \
+              --buildpack paketo-buildpacks/java-native-image@7.8.1 \
               --path . \
               --env "BP_JVM_VERSION=17" \
+              --env "BP_NATIVE_IMAGE=true" \
               --cache-image ghcr.io/alexshamrai/medicine-registry-paketo-cache-image:latest \
               --publish
       - name: Install flyctl via https://github.com/superfly/flyctl-actions
