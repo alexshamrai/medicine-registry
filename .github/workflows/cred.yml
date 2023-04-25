@@ -1,0 +1,3 @@
+steps:
+  - name: Set environment variable for Google Sheets credentials
+    run: echo "GOOGLE_CREDENTIALS=${{ secrets.GOOGLE_CREDENTIALS }}" >> $GITHUB_ENV
