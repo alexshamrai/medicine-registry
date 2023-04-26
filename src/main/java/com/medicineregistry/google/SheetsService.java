@@ -1,4 +1,4 @@
-package com.medicineregistry;
+package com.medicineregistry.google;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
 
-public class GoogleSheetsService {
+public class SheetsService {
 
     private static final String APPLICATION_NAME = "medicine-registry";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
