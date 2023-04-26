@@ -1,6 +1,6 @@
 package com.medicineregistry;
 
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
@@ -18,8 +18,6 @@ public class GoogleSheetsService {
 
     private static final String APPLICATION_NAME = "medicine-registry";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final String credentialsFilePath = "src/main/resources/google-credentials.json";
-
 
     public static Sheets getSheetsService() throws IOException, GeneralSecurityException {
         var credentials = authorize();
@@ -32,7 +30,8 @@ public class GoogleSheetsService {
     }
 
     private static GoogleCredentials authorize()  throws IOException {
-        return GoogleCredentials.fromStream(new FileInputStream(credentialsFilePath))
+        String credentialsJson = System.getenv("GOOGLE_CREDENTIALS");
+        return GoogleCredentials.fromStream(new ByteArrayInputStream(credentialsJson.getBytes()))
                                 .createScoped(Collections.singleton(SheetsScopes.SPREADSHEETS));
     }
 
